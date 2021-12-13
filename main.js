@@ -142,6 +142,18 @@ const loadstudents = async () => {
       return a.age - b.age;
     });
     displaystudents(students);
+    // console.log(students);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const loadschools = async () => {
+  try {
+    const res = await fetch("https://api.mocki.io/v2/01047e91/schools");
+    let schools = await res.json();
+    // displaySchools(schools);
+    console.log(schools);
   } catch (err) {
     console.error(err);
   }
@@ -190,3 +202,4 @@ const displaystudents = (students) => {
 };
 
 loadstudents();
+loadschools();
