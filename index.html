@@ -32,23 +32,32 @@
                     <span class="navbar-toggler-icon"></span>
                   </button>
                   <div class="collapse navbar-collapse" id="navbarText">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                     
-                    </ul>
+                    <ul class="navbar-nav me-auto  ">
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Choose Education
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                          <li><a class="dropdown-item" id="Frontend">FrontEnd</a></li>
+                          <li><a class="dropdown-item" id="Backend">Backend</a></li>
+                          <li><a class="dropdown-item" id="dotNET">.Net</a></li>
+                        </ul>
+                      </li>
+                     </ul>
                     <span class="navbar-text">
                       <button
                       class="btn btn-outline-light bi-sort-alpha-up-alt"
-                      id="sortingFirstName" onclick="buttonClickFirstname()"> <span class="glyphicon glyphicon-sort"></span>
+                      id="sortingFirstName" > <span class="glyphicon glyphicon-sort"></span>
                       Förnamn
                     </button>
                     <button
                     class="btn btn-outline-light bi-sort-alpha-up-alt"
-                    id="sortingLastName" onclick="buttonClickLastname()"> <span class="glyphicon glyphicon-sort"></span>
+                    id="sortingLastName" > <span class="glyphicon glyphicon-sort"></span>
                     Efternamn
                   </button>
                   <button
                   class="btn btn-outline-light youngest bi-sort-numeric-down-alt"
-                  id="sortingAge" onclick="buttonClickAge()"> <span class="glyphicon glyphicon-sort"></span>
+                  id="sortingAge" > <span class="glyphicon glyphicon-sort"></span>
                   Ålder</i>
                 </button>
                     </span>

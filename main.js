@@ -2,6 +2,42 @@ const studentsList = document.getElementById("studentsList");
 const searchBar = document.getElementById("searchBar");
 let students = [];
 
+// sort by Education
+const frontend=document.querySelector("#Frontend"); 
+frontend.addEventListener("click", () => {
+  
+  const filteredstudents = students.filter((student) => {
+    return (
+      student.programme==="Frontend"
+    )
+  })
+displaystudents(filteredstudents);
+});
+
+// sort by Education
+const backend=document.querySelector("#Backend"); 
+backend.addEventListener("click", () => {
+
+  const filteredstudents = students.filter((student) => {
+    return (
+      student.programme==="Backend"
+    )
+  })
+displaystudents(filteredstudents);
+});
+
+// sort by Education
+const dotNET=document.querySelector("#dotNET"); 
+dotNET.addEventListener("click", () => {
+
+  const filteredstudents = students.filter((student) => {
+    return (
+      student.programme===".NET"
+    )
+  })
+displaystudents(filteredstudents);
+});
+
 // sort by first name
 let sortFirstName = document.querySelector("#sortingFirstName");
 let clicked = true;
@@ -59,17 +95,6 @@ sortLastName.addEventListener("click", function (e) {
     clicked = true;
   }
 });
-
-// let sortFN = document.querySelector("#sortingLastName");
-// let clicked = true;
-// sortFN.addEventListener("click", function () {
-//   let lastNameAZ = students.sort(function (a, b) {
-//     if (a.lastName.toLowerCase() < b.lastName.toLowerCase()) return -1;
-//     if (a.lastName.toLowerCase() > b.lastName.toLowerCase()) return 1;
-//     return 0;
-//   });
-//   displaystudents(lastNameAZ);
-// });
 
 // sort by age
 
