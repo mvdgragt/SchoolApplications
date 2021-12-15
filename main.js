@@ -128,20 +128,21 @@ searchBar.addEventListener("keyup", (e) => {
     return (
       student.firstName.toLowerCase() === searchString ||
       student.lastName.toLowerCase() === searchString ||
-      student.programme.toLowerCase().includes(searchString)
+      student.programme.toLowerCase().includes(searchString) 
+      //  ||student.hobbies.toLowerCase().includes(searchString)
     );
   });
   displaystudents(filteredstudents);
 });
 
-const loadstudents = async () => {
+const loadstudents = async (schools) => {
   try {
     const res = await fetch("https://api.mocki.io/v2/01047e91/students");
     students = await res.json();
     students.sort(function (a, b) {
       return a.age - b.age;
     });
-    displaystudents(students);
+    displaystudents(students, schools);
     // console.log(students);
   } catch (err) {
     console.error(err);
@@ -154,13 +155,26 @@ const loadschools = async () => {
     let schools = await res.json();
     // displaySchools(schools);
     console.log(schools);
+    return schools;
   } catch (err) {
     console.error(err);
   }
 };
 
 // console.log(loadstudents);
-const displaystudents = (students) => {
+const displaystudents = (students, schools) => {
+    //kolla vilka skolor som matchar
+
+  //sortera skolorna enligt färg/vilka som matchar bäst
+
+  console.log("test", schools);
+  let myList = "<ul>";
+  for (var i = 0; i < schools.length; i++) {
+    myList += "<li>" + schools[i].name + "</li>";
+  }
+  myList += "</ul>";
+  console.log(myList);
+
   const htmlString = students
     .map((student) => {
       return `
@@ -170,6 +184,9 @@ const displaystudents = (students) => {
           <h2>${student.firstName} ${student.lastName}</h2>
           <h3>${student.programme}</h3>
           <h4>Age: ${student.age}</h4>
+          ---
+          <h6>Hobbies:</h6>
+          <h6>${student.hobbies}</h6>
         </div>
         <div class="card__face card__face--back">
           <div class="card__content">
@@ -180,9 +197,7 @@ const displaystudents = (students) => {
             <h3>Age: ${student.age}</h3>
               <h3>${student.programme}</h3>
               ---
-              <p>
-               Applicable schools here
-              </p>
+              ${myList}
             </div>
           </div>
         </div>
@@ -201,5 +216,6 @@ const displaystudents = (students) => {
   cards.forEach((card) => card.addEventListener("click", flipCard));
 };
 
-loadstudents();
-loadschools();
+loadschools().then((schools) => {
+  loadstudents(schools);
+});
