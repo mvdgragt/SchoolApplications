@@ -165,8 +165,6 @@ const loadschools = async () => {
 const displaystudents = (students, schools) => {
     //kolla vilka skolor som matchar
 
-let myList = "<ul>";
-
 function firstChoice(){
   students.forEach((student) => {
     schools.forEach((school) => {
@@ -174,7 +172,6 @@ function firstChoice(){
           if (
             student.hobbies.every((elem) => school.activities.includes(elem))
           )            console.log(`${student.firstName} can go to  ${school.name} which has all hobbies`)
-school.name
         }
       }
       )})
@@ -191,10 +188,7 @@ school.name
                 console.log(`${student.firstName} can go to  ${school.name} which has some hobbies`)
               let myList = "<ul>";
               myList += "<li>" + school.name + "</li>";
-              myList += "</ul>";
-
-
-    
+              myList += "</ul>";   
             }
           }
           )})
