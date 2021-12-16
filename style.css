@@ -165,3 +165,7 @@ button {
   display: grid;
   justify-content: center;
 }
+
+ul {
+  list-style-type: none;
+}
