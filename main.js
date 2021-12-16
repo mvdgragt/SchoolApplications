@@ -154,7 +154,7 @@ const loadschools = async () => {
     const res = await fetch("https://api.mocki.io/v2/01047e91/schools");
     let schools = await res.json();
     // displaySchools(schools);
-    console.log(schools);
+    // console.log(schools);
     return schools;
   } catch (err) {
     console.error(err);
@@ -165,18 +165,48 @@ const loadschools = async () => {
 const displaystudents = (students, schools) => {
     //kolla vilka skolor som matchar
 
-  //sortera skolorna enligt färg/vilka som matchar bäst
+let myList = "<ul>";
 
-  console.log("test", schools);
-  let myList = "<ul>";
-  for (var i = 0; i < schools.length; i++) {
-    myList += "<li>" + schools[i].name + "</li>";
-  }
-  myList += "</ul>";
-  console.log(myList);
+function firstChoice(){
+  students.forEach((student) => {
+    schools.forEach((school) => {
+         if (school.programmes.includes(student.programme)) {
+          if (
+            student.hobbies.every((elem) => school.activities.includes(elem))
+          )            console.log(`${student.firstName} can go to  ${school.name} which has all hobbies`)
+school.name
+        }
+      }
+      )})
+    };
+
+    function secondChoice(){
+      students.forEach((student) => {
+        schools.forEach((school) => {
+             if (school.programmes.includes(student.programme)) {
+              if (
+                student.hobbies.some((elem) => school.activities.includes(elem))
+              )          
+              // create list with school names 
+                console.log(`${student.firstName} can go to  ${school.name} which has some hobbies`)
+              let myList = "<ul>";
+              myList += "<li>" + school.name + "</li>";
+              myList += "</ul>";
+
+
+    
+            }
+          }
+          )})
+        };
+    
+firstChoice();
+console.log("")
+secondChoice();
 
   const htmlString = students
     .map((student) => {
+      
       return `
       <div class="card">
       <div class="card__inner">
@@ -197,8 +227,7 @@ const displaystudents = (students, schools) => {
             <h3>Age: ${student.age}</h3>
               <h3>${student.programme}</h3>
               ---
-              ${myList}
-            </div>
+              </div>
           </div>
         </div>
       </div>
