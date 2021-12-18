@@ -185,6 +185,7 @@ students.forEach((student) => {
 
   // console.log("test", schools);
   let myList = "<ul>";
+  
   for (var i = 0; i < schools.length; i++) {
     
     myList += "<li>" + schools[i].name + "</li>";

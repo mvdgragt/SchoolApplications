@@ -165,38 +165,7 @@ const loadschools = async () => {
 const displaystudents = (students, schools) => {
     //kolla vilka skolor som matchar
 
-function firstChoice(){
-  students.forEach((student) => {
-    schools.forEach((school) => {
-         if (school.programmes.includes(student.programme)) {
-          if (
-            student.hobbies.every((elem) => school.activities.includes(elem))
-          )            console.log(`${student.firstName} can go to  ${school.name} which has all hobbies`)
-        }
-      }
-      )})
-    };
 
-    function secondChoice(){
-      students.forEach((student) => {
-        schools.forEach((school) => {
-             if (school.programmes.includes(student.programme)) {
-              if (
-                student.hobbies.some((elem) => school.activities.includes(elem))
-              )          
-              // create list with school names 
-                console.log(`${student.firstName} can go to  ${school.name} which has some hobbies`)
-              let myList = "<ul>";
-              myList += "<li>" + school.name + "</li>";
-              myList += "</ul>";   
-            }
-          }
-          )})
-        };
-    
-firstChoice();
-console.log("")
-secondChoice();
 
   const htmlString = students
     .map((student) => {
@@ -242,3 +211,41 @@ secondChoice();
 loadschools().then((schools) => {
   loadstudents(schools);
 });
+
+
+// ideer:
+
+// function firstChoice(){
+//   students.forEach((student) => {
+//     schools.forEach((school) => {
+//          if (school.programmes.includes(student.programme)) {
+//           if (
+//             student.hobbies.every((elem) => school.activities.includes(elem))
+//           )            console.log(`${student.firstName} can go to  ${school.name} which has all hobbies`)
+//         }
+//       }
+//       )}
+//       )
+//     };
+
+
+//     function secondChoice(){
+      // students.forEach((student) => {
+      //   schools.forEach((school) => {
+      //        if (school.programmes.includes(student.programme)) {
+      //         if (
+      //           student.hobbies.some((elem) => school.activities.includes(elem))
+      //         )          
+      //         // create list with school names 
+      //           console.log(`${student.firstName} can go to  ${school.name} which has some hobbies`)
+      //         let myList = "<ul>";
+      //         myList += "<li>" + school.name + "</li>";
+      //         myList += "</ul>";   
+      //       }
+      //     }
+      //     )}
+      //     )
+      //   };
+    
+// firstChoice();
+// secondChoice();
