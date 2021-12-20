@@ -1,15 +1,7 @@
 const studentsList = document.getElementById("studentsList");
 const searchBar = document.getElementById("searchBar");
 let students = [];
-
-// sort by Education
-const frontend = document.querySelector("#Frontend");
-frontend.addEventListener("click", () => {
-  const filteredstudents = students.filter((student) => {
-    return student.programme === "Frontend";
-  });
-  displaystudents(filteredstudents);
-});
+let schools = [];
 
 // sort by Education
 const backend = document.querySelector("#Backend");
@@ -17,7 +9,7 @@ backend.addEventListener("click", () => {
   const filteredstudents = students.filter((student) => {
     return student.programme === "Backend";
   });
-  displaystudents(filteredstudents);
+  displaystudents(filteredstudents, schools);
 });
 
 // sort by Education
@@ -26,7 +18,7 @@ dotNET.addEventListener("click", () => {
   const filteredstudents = students.filter((student) => {
     return student.programme === ".NET";
   });
-  displaystudents(filteredstudents);
+  displaystudents(filteredstudents, schools);
 });
 
 // sort by first name
@@ -41,7 +33,7 @@ sortFirstName.addEventListener("click", function (e) {
       if (a.firstName.toLowerCase() > b.firstName.toLowerCase()) return 1;
       return 0;
     });
-    displaystudents(firstNameAZ);
+    displaystudents(firstNameAZ, schools);
     clicked = false;
   } else {
     e.target.classList.replace(
@@ -53,7 +45,7 @@ sortFirstName.addEventListener("click", function (e) {
       if (a.firstName.toLowerCase() < b.firstName.toLowerCase()) return 1;
       return 0;
     });
-    displaystudents(firstNameAZ);
+    displaystudents(firstNameAZ, schools);
     clicked = true;
   }
 });
@@ -70,7 +62,7 @@ sortLastName.addEventListener("click", function (e) {
       if (a.lastName.toLowerCase() > b.lastName.toLowerCase()) return 1;
       return 0;
     });
-    displaystudents(lastNameAZ);
+    displaystudents(lastNameAZ, schools);
     clicked = false;
   } else {
     e.target.classList.replace(
@@ -82,7 +74,7 @@ sortLastName.addEventListener("click", function (e) {
       if (a.lastName.toLowerCase() < b.lastName.toLowerCase()) return 1;
       return 0;
     });
-    displaystudents(lastNameAZ);
+    displaystudents(lastNameAZ, schools);
     clicked = true;
   }
 });
@@ -98,7 +90,7 @@ sortSA.addEventListener("click", function (e) {
       "bi-sort-numeric-up-alt"
     );
     let oldestStudent = students.sort((a, b) => b.age - a.age);
-    displaystudents(oldestStudent);
+    displaystudents(oldestStudent, schools);
     clicked = false;
   } else {
     e.target.classList.replace(
@@ -106,7 +98,7 @@ sortSA.addEventListener("click", function (e) {
       "bi-sort-numeric-down-alt"
     );
     let oldestStudent = students.sort((a, b) => a.age - b.age);
-    displaystudents(oldestStudent);
+    displaystudents(oldestStudent, schools);
     clicked = true;
   }
 });
@@ -118,12 +110,13 @@ searchBar.addEventListener("keyup", (e) => {
   const filteredstudents = students.filter((student) => {
     return (
       student.firstName.toLowerCase() === searchString ||
-      student.lastName.toLowerCase() === searchString ||
-      student.programme.toLowerCase().includes(searchString)
+      student.lastName.toLowerCase() === searchString
+      // ||
+      // student.programme.toLowerCase().includes(searchString)
       //  ||student.hobbies.toLowerCase().includes(searchString)
     );
   });
-  displaystudents(filteredstudents);
+  displaystudents(filteredstudents, schools);
 });
 
 const loadstudents = async (schools) => {
@@ -155,7 +148,7 @@ const loadschools = async () => {
 // console.log(loadstudents);
 const displaystudents = (students, schools) => {
   //kolla vilka skolor som matchar
-  console.log(schools);
+  // console.log(schools);
   const htmlString = students
     .map((student) => {
       const schoolMatches = matchingSchools(student, schools);
@@ -201,7 +194,7 @@ const displaystudents = (students, schools) => {
 
 const matchingSchools = (student, schools) => {
   const schoolsWithMatch = schools.map((school) => {
-    console.log(school.activities);
+    // console.log(school.activities);
 
     const activityMatch = Boolean(
       typeof school.activities === "string"
@@ -235,7 +228,7 @@ const schoolsHTML = (schools) => {
       const red =
         !school.matches.programme && !school.matches.hobbie ? "red" : undefined;
       const color = green || yellow || red;
-      console.log(color);
+      // console.log(color);
       return `
     <div>
     <p id="${color}">${school.name}</p>
@@ -244,6 +237,15 @@ const schoolsHTML = (schools) => {
     })
     .join("");
 };
+
+// sort by Education
+const frontend = document.querySelector("#Frontend");
+frontend.addEventListener("click", () => {
+  const filteredstudents = students.filter((student) => {
+    return student.programme === "Frontend";
+  });
+  displaystudents(filteredstudents, schools);
+});
 
 loadschools().then((schools) => {
   loadstudents(schools);
