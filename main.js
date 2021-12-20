@@ -3,39 +3,30 @@ const searchBar = document.getElementById("searchBar");
 let students = [];
 
 // sort by Education
-const frontend=document.querySelector("#Frontend"); 
+const frontend = document.querySelector("#Frontend");
 frontend.addEventListener("click", () => {
-  
   const filteredstudents = students.filter((student) => {
-    return (
-      student.programme==="Frontend"
-    )
-  })
-displaystudents(filteredstudents);
+    return student.programme === "Frontend";
+  });
+  displaystudents(filteredstudents);
 });
 
 // sort by Education
-const backend=document.querySelector("#Backend"); 
+const backend = document.querySelector("#Backend");
 backend.addEventListener("click", () => {
-
   const filteredstudents = students.filter((student) => {
-    return (
-      student.programme==="Backend"
-    )
-  })
-displaystudents(filteredstudents);
+    return student.programme === "Backend";
+  });
+  displaystudents(filteredstudents);
 });
 
 // sort by Education
-const dotNET=document.querySelector("#dotNET"); 
+const dotNET = document.querySelector("#dotNET");
 dotNET.addEventListener("click", () => {
-
   const filteredstudents = students.filter((student) => {
-    return (
-      student.programme===".NET"
-    )
-  })
-displaystudents(filteredstudents);
+    return student.programme === ".NET";
+  });
+  displaystudents(filteredstudents);
 });
 
 // sort by first name
@@ -128,7 +119,7 @@ searchBar.addEventListener("keyup", (e) => {
     return (
       student.firstName.toLowerCase() === searchString ||
       student.lastName.toLowerCase() === searchString ||
-      student.programme.toLowerCase().includes(searchString) 
+      student.programme.toLowerCase().includes(searchString)
       //  ||student.hobbies.toLowerCase().includes(searchString)
     );
   });
@@ -163,13 +154,12 @@ const loadschools = async () => {
 
 // console.log(loadstudents);
 const displaystudents = (students, schools) => {
-    //kolla vilka skolor som matchar
-
-
-
+  //kolla vilka skolor som matchar
+  console.log(schools);
   const htmlString = students
     .map((student) => {
-      
+      const schoolMatches = matchingSchools(student, schools);
+
       return `
       <div class="card">
       <div class="card__inner">
@@ -190,7 +180,8 @@ const displaystudents = (students, schools) => {
             <h3>Age: ${student.age}</h3>
               <h3>${student.programme}</h3>
               ---
-              </div>
+              ${schoolsHTML(schoolMatches)}
+            </div>
           </div>
         </div>
       </div>
@@ -208,44 +199,52 @@ const displaystudents = (students, schools) => {
   cards.forEach((card) => card.addEventListener("click", flipCard));
 };
 
+const matchingSchools = (student, schools) => {
+  const schoolsWithMatch = schools.map((school) => {
+    console.log(school.activities);
+
+    const activityMatch = Boolean(
+      typeof school.activities === "string"
+        ? false
+        : school.activities.some((activity) =>
+            student.hobbies.includes(activity)
+          )
+    );
+    const programmeMatch = school.programmes.includes(student.programme);
+    return {
+      ...school,
+      matches: {
+        hobbie: activityMatch,
+        programme: programmeMatch
+      }
+    };
+  });
+  return schoolsWithMatch;
+};
+
+const schoolsHTML = (schools) => {
+  return schools
+    .map((school) => {
+      const green =
+        school.matches.programme && school.matches.hobbie ? "green" : undefined;
+      const yellow =
+        (school.matches.programme && !school.matches.hobbie) ||
+        (!school.matches.programme && school.matches.hobbie)
+          ? "yellow"
+          : undefined;
+      const red =
+        !school.matches.programme && !school.matches.hobbie ? "red" : undefined;
+      const color = green || yellow || red;
+      console.log(color);
+      return `
+    <div>
+    <p id="${color}">${school.name}</p>
+    </div>
+  `;
+    })
+    .join("");
+};
+
 loadschools().then((schools) => {
   loadstudents(schools);
 });
-
-
-// ideer:
-
-// function firstChoice(){
-//   students.forEach((student) => {
-//     schools.forEach((school) => {
-//          if (school.programmes.includes(student.programme)) {
-//           if (
-//             student.hobbies.every((elem) => school.activities.includes(elem))
-//           )            console.log(`${student.firstName} can go to  ${school.name} which has all hobbies`)
-//         }
-//       }
-//       )}
-//       )
-//     };
-
-
-//     function secondChoice(){
-      // students.forEach((student) => {
-      //   schools.forEach((school) => {
-      //        if (school.programmes.includes(student.programme)) {
-      //         if (
-      //           student.hobbies.some((elem) => school.activities.includes(elem))
-      //         )          
-      //         // create list with school names 
-      //           console.log(`${student.firstName} can go to  ${school.name} which has some hobbies`)
-      //         let myList = "<ul>";
-      //         myList += "<li>" + school.name + "</li>";
-      //         myList += "</ul>";   
-      //       }
-      //     }
-      //     )}
-      //     )
-      //   };
-    
-// firstChoice();
-// secondChoice();
