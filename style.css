@@ -169,3 +169,20 @@ button {
 ul {
   list-style-type: none;
 }
+
+#green {
+  color: green;
+  margin: auto;
+}
+
+#yellow {
+  color: var(--primary);
+  margin: auto;
+
+}
+
+#red {
+  color: var(--secondary);
+  margin: auto;
+
+}
