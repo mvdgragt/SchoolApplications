@@ -172,7 +172,6 @@ const displaystudents = (students, schools) => {
             <div class="card__body">
             <h3>Age: ${student.age}</h3>
               <h3>${student.programme}</h3>
-              ---
               ${schoolsHTML(schoolMatches)}
             </div>
           </div>
